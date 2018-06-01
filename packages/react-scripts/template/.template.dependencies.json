@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@nutkit/component-button": "*",
+    "@nutkit/component-grid": "*",
+    "@nutkit/styles": "*",
+    "@nutkit/tokens": "*"
+  }
+}

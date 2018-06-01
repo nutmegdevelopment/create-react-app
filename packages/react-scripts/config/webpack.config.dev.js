@@ -166,7 +166,7 @@ module.exports = {
           {
             test: /\.(js|jsx|mjs)$/,
             include: [
-              paths.srcPaths,
+              paths.appSrc,
               paths.nkModulesRegex
             ],
             loader: require.resolve('babel-loader'),

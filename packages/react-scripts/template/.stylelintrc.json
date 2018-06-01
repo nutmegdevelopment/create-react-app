@@ -1,0 +1,3 @@
+{
+  "extends": "@nutmeg/stylelint-config"
+}
