@@ -12,6 +12,9 @@ const path = require('path');
 const fs = require('fs');
 const url = require('url');
 
+// @nutkit
+const nkModulesRegex = /node_modules[\\/]@nutkit[\\/]component-/;
+
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebookincubator/create-react-app/issues/637
 const appDirectory = fs.realpathSync(process.cwd());
