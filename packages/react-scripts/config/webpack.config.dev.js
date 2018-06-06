@@ -22,6 +22,8 @@ const paths = require('./paths');
 
 // @nutkit - START
 const getLocalIdent = require('./getLocalIdent');
+const pkgJson = require(paths.appPackageJson);
+const nutkitConfig = pkgJson['nutkit'] || {};
 const postcssOptions = {
   // Necessary for external CSS imports to work
   // https://github.com/facebookincubator/create-react-app/issues/2677
@@ -242,7 +244,9 @@ module.exports = {
                 options: postcssOptions,
               },
               {
-                loader: require.resolve('sass-loader')
+                loader: require.resolve('sass-loader'), options: {
+                  data: `$nk-product: ${nutkitConfig.product};`
+                },
               },
             ],
           },

@@ -35,18 +35,21 @@ module.exports = function(
   // Copy over some of the devDependencies
   appPackage.dependencies = appPackage.dependencies || {};
 
+  // @nutkit
+  appPackage.nutkit = {};
+  appPackage.nutkit.product = 'nutmeg-uk';
+
   // Setup the script rules
   appPackage.scripts = {
     start: 'react-scripts start',
     build: 'react-scripts build',
     test: 'react-scripts test --env=jsdom',
     // @nutkit
-    'lint:scss': "stylelint 'src/**/*.scss' --syntax scss",
-    'lint:scss:fix': "stylefmt --recursive 'src/**/*.scss'",
-    'lint:js': 'eslint . --ignore-path .gitignore --ext .js,.jsx',
-    'lint:js:fix': 'npm run lint:js -- --fix',
-    lint: 'npm run lint:js && npm run lint:scss',
-    eject: 'react-scripts eject',
+    'lint:styles': "stylelint 'src/**/*.scss' --syntax scss",
+    'lint:styles:fix': "stylefmt --recursive 'src/**/*.scss'",
+    'lint:scripts': 'eslint . --ignore-path .gitignore --ext .js,.jsx',
+    'lint:scripts:fix': 'npm run lint:js -- --fix',
+    lint: 'npm run lint:scripts && npm run lint:styles',
   };
 
   fs.writeFileSync(
