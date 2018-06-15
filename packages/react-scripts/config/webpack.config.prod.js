@@ -21,6 +21,40 @@ const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 
+// @nutkit - START
+const getLocalIdent = require('./getLocalIdent');
+const pkgJson = require(paths.appPackageJson);
+const nutkitConfig = pkgJson['nutkit'] || {};
+
+const sassOptions = {
+  data: '',
+};
+
+if (nutkitConfig.product != null) {
+  const tokens = `@import "~@nutkit/styles/src/base/${nutkitConfig.product}/tokens.scss";`;
+  sassOptions.data = tokens;
+}
+
+const postcssOptions = {
+  // Necessary for external CSS imports to work
+  // https://github.com/facebookincubator/create-react-app/issues/2677
+  ident: 'postcss',
+  plugins: () => [
+    require('postcss-flexbugs-fixes'),
+    autoprefixer({
+      browsers: [
+        '>1%',
+        'last 4 versions',
+        'Firefox ESR',
+        'not ie < 9', // React doesn't support IE8 anyway
+      ],
+      flexbox: 'no-2009',
+    }),
+  ],
+};
+// @nutkit - END
+
+
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
 const publicPath = paths.servedPath;
@@ -170,7 +204,10 @@ module.exports = {
           // Process JS with Babel.
           {
             test: /\.(js|jsx|mjs)$/,
-            include: paths.appSrc,
+            include: [
+              paths.appSrc,
+              paths.nkModulesRegex
+            ],
             loader: require.resolve('babel-loader'),
             options: {
               // @remove-on-eject-begin
@@ -214,23 +251,8 @@ module.exports = {
                     },
                     {
                       loader: require.resolve('postcss-loader'),
-                      options: {
-                        // Necessary for external CSS imports to work
-                        // https://github.com/facebookincubator/create-react-app/issues/2677
-                        ident: 'postcss',
-                        plugins: () => [
-                          require('postcss-flexbugs-fixes'),
-                          autoprefixer({
-                            browsers: [
-                              '>1%',
-                              'last 4 versions',
-                              'Firefox ESR',
-                              'not ie < 9', // React doesn't support IE8 anyway
-                            ],
-                            flexbox: 'no-2009',
-                          }),
-                        ],
-                      },
+                      // @nutkit
+                      options: postcssOptions,
                     },
                   ],
                 },
@@ -239,6 +261,34 @@ module.exports = {
             ),
             // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
           },
+
+          // @nutkit - START
+          {
+            test: /\.scss$/,
+            use: [
+              require.resolve('style-loader'),
+              {
+                loader: require.resolve('css-loader'),
+                options: {
+                  importLoaders: 1,
+                  modules: false,
+                  minimize: true,
+                  localIdentName: '[local]-[hash:base64:5]',
+                  getLocalIdent: getLocalIdent,
+                },
+              },
+              {
+                loader: require.resolve('postcss-loader'),
+                options: postcssOptions,
+              },
+              {
+                loader: require.resolve('sass-loader'),
+                options: sassOptions,
+              },
+            ],
+          },
+          // @nutkit - END
+
           // "file" loader makes sure assets end up in the `build` folder.
           // When you `import` an asset, you get its filename.
           // This loader doesn't use a "test" so it will catch all modules
