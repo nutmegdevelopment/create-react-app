@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@nutkit/component-panel": "*",
     "@nutkit/component-button": "*",
     "@nutkit/component-grid": "*",
     "@nutkit/styles": "*",
