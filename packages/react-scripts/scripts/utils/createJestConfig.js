@@ -39,6 +39,9 @@ module.exports = (resolve, rootDir, isEjecting) => {
         'config/jest/fileTransform.js'
       ),
     },
+    // @nutkit - START
+    transformIgnorePatterns: ['/node_modules[\\/]@nutkit[\\/]component-/'],
+    // @nutkit - END
     moduleNameMapper: {
       '^react-native$': 'react-native-web',
     },
