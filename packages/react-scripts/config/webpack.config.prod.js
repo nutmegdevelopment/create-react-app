@@ -204,10 +204,12 @@ module.exports = {
           // Process JS with Babel.
           {
             test: /\.(js|jsx|mjs)$/,
+            // @nutkit - START
             include: [
               paths.appSrc,
               paths.nkModulesRegex
             ],
+            // @nutkit - END
             loader: require.resolve('babel-loader'),
             options: {
               // @remove-on-eject-begin
