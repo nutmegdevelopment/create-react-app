@@ -1,0 +1,7 @@
+{
+  "extends": "@nutmeg/eslint-config",
+  "env": {
+    "browser": true,
+    "jest": true
+  }
+}

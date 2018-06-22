@@ -48,7 +48,7 @@ module.exports = function(
     'lint:styles': "stylelint 'src/**/*.scss' --syntax scss",
     'lint:styles:fix': "stylefmt --recursive 'src/**/*.scss'",
     'lint:scripts': 'eslint . --ignore-path .gitignore --ext .js,.jsx',
-    'lint:scripts:fix': 'npm run lint:js -- --fix',
+    'lint:scripts:fix': 'npm run lint:scripts -- --fix',
     lint: 'npm run lint:scripts && npm run lint:styles',
   };
 
