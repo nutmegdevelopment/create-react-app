@@ -4,11 +4,11 @@ import Panel from '@nutkit/component-panel';
 
 import '@nutkit/styles';
 
-import './App.css';
+import './App.scss';
 import logo from './nutkit_logo.svg';
 
 
-const App = function() {
+const App = () => {
     return (
       <div className="App">
         <header className="App-header">
