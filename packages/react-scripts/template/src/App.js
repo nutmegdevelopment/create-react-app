@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-import '@nutkit/styles';
-
+import React from 'react';
 import Button from '@nutkit/component-button';
 import Panel from '@nutkit/component-panel';
 
-class App extends Component {
-  render() {
+import '@nutkit/styles';
+
+import './App.css';
+import logo from './nutkit_logo.svg';
+
+
+const App = function() {
     return (
       <div className="App">
         <header className="App-header">
@@ -17,12 +17,11 @@ class App extends Component {
         </header>
         <Panel>
           <p>Hello this is a f** panel</p>
-          <br/>
+          <br />
           <Button>Get Started!!</Button>
         </Panel>
       </div>
     );
-  }
-}
+};
 
 export default App;
